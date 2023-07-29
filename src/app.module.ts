@@ -12,6 +12,7 @@ import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
 import { MoviesModule } from './movies/movies.module';
 import { SeriesModule } from './series/series.module';
+import { UsersInfo } from './users/usersInfo/users-info.model';
 
 @Module({
   controllers: [AppController],
@@ -27,7 +28,7 @@ import { SeriesModule } from './series/series.module';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles],
+      models: [User, Role, UserRoles, UsersInfo],
       autoLoadModels: true,
       synchronize: true,
     }),
