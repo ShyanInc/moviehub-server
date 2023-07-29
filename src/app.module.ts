@@ -13,9 +13,9 @@ import { UserRoles } from './roles/user-roles.model';
 import { MoviesModule } from './movies/movies.module';
 import { SeriesModule } from './series/series.module';
 import { UserInfo } from './users/usersInfo/users-info.model';
-import { Genre } from './movies/genres/genres.model';
+import { Genre } from './genres/genres.model';
 import { Movie } from './movies/movies.model';
-import { MovieGenres } from './movies/genres/movie-genres.model';
+import { MovieGenres } from './genres/movie-genres.model';
 
 @Module({
   controllers: [AppController],

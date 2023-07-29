@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Movie } from '../movies.model';
+import { Movie } from '../movies/movies.model';
 import { Genre } from './genres.model';
 
 @Table({ tableName: 'movie_genres', createdAt: false, updatedAt: false })

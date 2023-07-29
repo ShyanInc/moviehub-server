@@ -5,8 +5,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Genre } from './genres/genres.model';
-import { MovieGenres } from './genres/movie-genres.model';
+import { Genre } from '../genres/genres.model';
+import { MovieGenres } from '../genres/movie-genres.model';
 
 interface MovieCreationAttrs {
   translatedTitle: string;
