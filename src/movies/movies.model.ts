@@ -12,7 +12,6 @@ interface MovieCreationAttrs {
   translatedTitle: string;
   originalTitle: string;
   year: number;
-  genre: string[];
   director: string[];
   actors: string[];
   screenwriters?: string[];
