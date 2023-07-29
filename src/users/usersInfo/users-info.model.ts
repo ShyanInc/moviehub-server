@@ -7,8 +7,15 @@ import {
 } from 'sequelize-typescript';
 import { User } from '../users.model';
 
+interface UsersInfoCreationAttrs {
+  name: string;
+  surname?: string;
+  status?: string;
+  birthDate: Date;
+}
+
 @Table({ tableName: 'user_info', createdAt: false, updatedAt: false })
-export class UsersInfo extends Model<UsersInfo> {
+export class UserInfo extends Model<UserInfo, UsersInfoCreationAttrs> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
