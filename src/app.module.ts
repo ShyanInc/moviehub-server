@@ -16,6 +16,7 @@ import { UserInfo } from './users/usersInfo/users-info.model';
 import { Genre } from './genres/genres.model';
 import { Movie } from './movies/movies.model';
 import { MovieGenres } from './genres/movie-genres.model';
+import { UserMovies } from './users/userMovies/user-movies.model';
 
 @Module({
   controllers: [AppController],
@@ -31,7 +32,16 @@ import { MovieGenres } from './genres/movie-genres.model';
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
-      models: [User, Role, UserRoles, UserInfo, Genre, MovieGenres, Movie],
+      models: [
+        User,
+        Role,
+        UserRoles,
+        UserInfo,
+        Genre,
+        MovieGenres,
+        Movie,
+        UserMovies,
+      ],
       autoLoadModels: true,
       synchronize: true,
     }),
