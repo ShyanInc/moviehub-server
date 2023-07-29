@@ -17,6 +17,10 @@ import { Genre } from './genres/genres.model';
 import { Movie } from './movies/movies.model';
 import { MovieGenres } from './genres/movie-genres.model';
 import { UserMovies } from './users/userMovies/user-movies.model';
+import { Series } from './series/series.model';
+import { SeriesGenres } from './genres/series-genres.model';
+import { Episode } from './series/episodes/episodes.model';
+import { UserSeries } from './users/userSeries/user-series.model';
 
 @Module({
   controllers: [AppController],
@@ -40,7 +44,11 @@ import { UserMovies } from './users/userMovies/user-movies.model';
         Genre,
         MovieGenres,
         Movie,
+        SeriesGenres,
+        Series,
+        Episode,
         UserMovies,
+        UserSeries,
       ],
       autoLoadModels: true,
       synchronize: true,
