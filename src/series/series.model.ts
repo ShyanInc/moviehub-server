@@ -12,6 +12,7 @@ import { SeriesGenres } from '../genres/series-genres.model';
 interface SeriesCreationAttrs {
   translatedTitle: string;
   originalTitle: string;
+  country: string[];
   year: number;
   seasonsCount: number;
   director: string[];
@@ -40,6 +41,9 @@ export class Series extends Model<Series, SeriesCreationAttrs> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   originalTitle: string;
+
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  country: string[];
 
   @Column({ type: DataType.INTEGER, allowNull: false })
   year: number;

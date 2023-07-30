@@ -11,6 +11,7 @@ import { MovieGenres } from '../genres/movie-genres.model';
 interface MovieCreationAttrs {
   translatedTitle: string;
   originalTitle: string;
+  country: string[];
   year: number;
   director: string[];
   actors: string[];
@@ -39,6 +40,9 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   originalTitle: string;
+
+  @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
+  country: string[];
 
   @Column({ type: DataType.INTEGER, allowNull: false })
   year: number;
