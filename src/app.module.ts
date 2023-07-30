@@ -52,6 +52,7 @@ import { UserSeries } from './users/userSeries/user-series.model';
       ],
       autoLoadModels: true,
       synchronize: true,
+      sync: { alter: true },
     }),
     UsersModule,
     RolesModule,
