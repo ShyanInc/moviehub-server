@@ -48,7 +48,7 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
   year: number;
 
   @BelongsToMany(() => Genre, () => MovieGenres)
-  genre: Genre[];
+  genres: Genre[];
 
   @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
   director: string[];

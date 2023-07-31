@@ -30,9 +30,9 @@ export class GenresController {
     return this.genresService.createGenre(dto);
   }
 
-  @Put()
-  updateByValue(@Body() dto: UpdateGenreDto) {
-    return this.genresService.updateGenreById(dto);
+  @Put('/:id')
+  updateById(@Param('id') id: number, @Body() dto: UpdateGenreDto) {
+    return this.genresService.updateGenreById(id, dto);
   }
 
   @Delete('/:id')
