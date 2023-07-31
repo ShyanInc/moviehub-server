@@ -21,6 +21,7 @@ import { Series } from './series/series.model';
 import { SeriesGenres } from './genres/series-genres.model';
 import { Episode } from './series/episodes/episodes.model';
 import { UserSeries } from './users/userSeries/user-series.model';
+import { GenresModule } from './genres/genres.module';
 
 @Module({
   controllers: [AppController],
@@ -59,6 +60,7 @@ import { UserSeries } from './users/userSeries/user-series.model';
     AuthModule,
     MoviesModule,
     SeriesModule,
+    GenresModule,
   ],
 })
 export class AppModule {}
