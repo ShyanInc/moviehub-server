@@ -26,7 +26,7 @@ export class GenresController {
   }
 
   @Post()
-  create(dto: CreateGenreDto) {
+  create(@Body() dto: CreateGenreDto) {
     return this.genresService.createGenre(dto);
   }
 
