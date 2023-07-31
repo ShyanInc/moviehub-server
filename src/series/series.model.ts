@@ -20,7 +20,7 @@ interface SeriesCreationAttrs {
   screenwriters?: string[];
   producers?: string[];
   ageRestriction?: number;
-  duration: number;
+  episodeDuration: number;
   coverImage: string;
   trailer?: string;
   rating: number;
@@ -52,7 +52,7 @@ export class Series extends Model<Series, SeriesCreationAttrs> {
   seasonsCount: number;
 
   @BelongsToMany(() => Genre, () => SeriesGenres)
-  genre: Genre[];
+  genres: Genre[];
 
   @Column({ type: DataType.ARRAY(DataType.STRING), allowNull: false })
   director: string[];
