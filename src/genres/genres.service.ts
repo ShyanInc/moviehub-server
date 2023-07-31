@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Genre } from './genres.model';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateGenreDto } from '../movies/dto/update-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
 
 @Injectable()
 export class GenresService {

@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { CreateGenreDto } from './dto/create-genre.dto';
-import { UpdateGenreDto } from '../movies/dto/update-genre.dto';
+import { UpdateGenreDto } from './dto/update-genre.dto';
 
 @Controller('genres')
 export class GenresController {
