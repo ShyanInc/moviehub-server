@@ -6,7 +6,6 @@ import {
   Table,
 } from 'sequelize-typescript';
 import { Genre } from '../genres/genres.model';
-import { MovieGenres } from '../genres/movie-genres.model';
 import { SeriesGenres } from '../genres/series-genres.model';
 
 interface SeriesCreationAttrs {

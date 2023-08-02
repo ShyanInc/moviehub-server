@@ -10,5 +10,6 @@ import { Series } from './series.model';
   controllers: [SeriesController],
   providers: [SeriesService],
   imports: [SequelizeModule.forFeature([Series, Genre]), GenresModule],
+  exports: [SeriesService],
 })
 export class SeriesModule {}

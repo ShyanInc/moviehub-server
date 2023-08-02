@@ -1,11 +1,13 @@
 import {
+  BelongsToMany,
   Column,
   DataType,
   ForeignKey,
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Series } from '../series.model';
+import { Series } from '../series/series.model';
+import { SeriesEpisodes } from './series-episodes.model';
 
 interface EpisodeCreationAttrs {
   season: number;
@@ -43,4 +45,7 @@ export class Episode extends Model<Episode, EpisodeCreationAttrs> {
 
   @Column({ type: DataType.DATE, allowNull: false })
   releaseDate: Date;
+
+  @BelongsToMany(() => Series, () => SeriesEpisodes)
+  series: Series;
 }

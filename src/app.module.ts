@@ -19,9 +19,11 @@ import { MovieGenres } from './genres/movie-genres.model';
 import { UserMovies } from './users/userMovies/user-movies.model';
 import { Series } from './series/series.model';
 import { SeriesGenres } from './genres/series-genres.model';
-import { Episode } from './series/episodes/episodes.model';
+import { Episode } from './episodes/episodes.model';
 import { UserSeries } from './users/userSeries/user-series.model';
 import { GenresModule } from './genres/genres.module';
+import { EpisodesModule } from './episodes/episodes.module';
+import { SeriesEpisodes } from './episodes/series-episodes.model';
 
 @Module({
   controllers: [AppController],
@@ -48,6 +50,7 @@ import { GenresModule } from './genres/genres.module';
         SeriesGenres,
         Series,
         Episode,
+        SeriesEpisodes,
         UserMovies,
         UserSeries,
       ],
@@ -61,6 +64,7 @@ import { GenresModule } from './genres/genres.module';
     MoviesModule,
     SeriesModule,
     GenresModule,
+    EpisodesModule,
   ],
 })
 export class AppModule {}
