@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { GenresService } from '../genres/genres.service';
 import { Series } from './series.model';
 import { CreateSeriesDto } from './dto/create-series.dto';
+import { Genre } from 'src/genres/genres.model';
 
 @Injectable()
 export class SeriesService {
@@ -16,7 +17,15 @@ export class SeriesService {
   }
 
   async getSeriesById(id: number) {
-    return await this.seriesRepository.findByPk(id, { include: { all: true } });
+    const series = await this.seriesRepository.findByPk(id, {
+      include: [Genre],
+    });
+
+    if (!series) {
+      throw new HttpException('Series not found!', HttpStatus.NOT_FOUND);
+    }
+
+    return series;
   }
 
   async createSeries(dto: CreateSeriesDto) {
