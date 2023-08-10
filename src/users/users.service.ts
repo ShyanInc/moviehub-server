@@ -11,6 +11,7 @@ import {
   UpdateUserPasswordDto,
 } from './dto/update-user.dto';
 import { RemoveRoleDto } from './dto/remove-role.dto';
+import { Role } from 'src/roles/roles.model';
 
 @Injectable()
 export class UsersService {
@@ -20,7 +21,16 @@ export class UsersService {
   ) {}
 
   async getAllUsers() {
-    return await this.userRepository.findAll();
+    return await this.userRepository.findAll({ include: [Role] });
+  }
+
+  async getUserById(id: number) {
+    const user = await this.userRepository.findByPk(id, { include: [Role] });
+    if (!user) {
+      throw new HttpException('User not found!', HttpStatus.NOT_FOUND);
+    }
+
+    return user;
   }
 
   async createUser(dto: CreateUserDto) {

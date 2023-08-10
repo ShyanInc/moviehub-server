@@ -6,7 +6,6 @@ import {
   Param,
   Patch,
   Post,
-  Put,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -62,6 +61,13 @@ export class UsersController {
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
+  }
+
+  @ApiOperation({ summary: 'Get user by id' })
+  @ApiResponse({ status: 200, type: User })
+  @Get('/:id')
+  getById(@Param('id') id: string) {
+    return this.usersService.getUserById(+id);
   }
 
   @ApiOperation({ summary: 'Ban user' })
