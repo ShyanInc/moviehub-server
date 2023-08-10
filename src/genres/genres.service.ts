@@ -13,7 +13,12 @@ export class GenresService {
   }
 
   async getGenreByValue(value: string) {
-    return await this.genreRepository.findOne({ where: { value } });
+    const genre = await this.genreRepository.findOne({ where: { value } });
+    if (!genre) {
+      throw new HttpException('Genre not found!', HttpStatus.NOT_FOUND);
+    }
+
+    return genre;
   }
 
   async createGenre(dto: CreateGenreDto) {
