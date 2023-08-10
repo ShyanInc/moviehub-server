@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Movie } from './movies.model';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { GenresService } from '../genres/genres.service';
+import { Genre } from 'src/genres/genres.model';
 
 @Injectable()
 export class MoviesService {
@@ -16,7 +17,12 @@ export class MoviesService {
   }
 
   async getMovieById(id: number) {
-    return await this.movieRepository.findByPk(id, { include: { all: true } });
+    const movie = await this.movieRepository.findByPk(id, { include: [Genre] });
+    if (!movie) {
+      throw new HttpException('Movie not found!', HttpStatus.NOT_FOUND);
+    }
+
+    return movie;
   }
 
   async createMovie(dto: CreateMovieDto) {
