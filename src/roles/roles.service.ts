@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Role } from './roles.model';
 import { CreateRoleDto } from './dto/create-role.dto';
+import { HttpException } from '@nestjs/common/exceptions';
+import { HttpStatus } from '@nestjs/common/enums';
 
 @Injectable()
 export class RolesService {
@@ -12,7 +14,12 @@ export class RolesService {
   }
 
   async getRoleByValue(value: string) {
-    return await this.roleRepository.findOne({ where: { value } });
+    const role = await this.roleRepository.findOne({ where: { value } });
+    if (!role) {
+      throw new HttpException('Role not found!', HttpStatus.NOT_FOUND);
+    }
+
+    return role;
   }
 
   async create(dto: CreateRoleDto) {
