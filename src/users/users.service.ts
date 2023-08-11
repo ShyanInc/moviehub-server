@@ -29,8 +29,14 @@ export class UsersService {
     if (!user) {
       throw new HttpException('User not found!', HttpStatus.NOT_FOUND);
     }
-
     return user;
+  }
+
+  async getUserByEmail(email: string) {
+    return await this.userRepository.findOne({
+      where: { email },
+      include: [Role],
+    });
   }
 
   async createUser(dto: CreateUserDto) {

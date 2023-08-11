@@ -30,7 +30,7 @@ import { SeriesEpisodes } from './episodes/series-episodes.model';
   providers: [AppService],
   imports: [
     ConfigModule.forRoot({
-      envFilePath: `.env`,
+      envFilePath: `.${process.env.NODE_ENV}.env`,
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
