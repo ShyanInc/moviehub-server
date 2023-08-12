@@ -24,7 +24,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './users.model';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { Roles } from 'src/auth/roles-auth.decorator';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 class BannedUser {
   @ApiProperty({ example: 1, description: '' })
@@ -60,7 +61,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
-  @UseGuards(JwtAuthGuard)
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
