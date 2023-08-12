@@ -6,6 +6,7 @@ import { Episode } from './episodes.model';
 import { Series } from '../series/series.model';
 import { SeriesEpisodes } from './series-episodes.model';
 import { SeriesModule } from '../series/series.module';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
   controllers: [EpisodesController],
@@ -13,6 +14,7 @@ import { SeriesModule } from '../series/series.module';
   imports: [
     SequelizeModule.forFeature([Episode, Series, SeriesEpisodes]),
     SeriesModule,
+    AuthModule,
   ],
 })
 export class EpisodesModule {}

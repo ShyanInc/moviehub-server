@@ -1,8 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { SeriesService } from './series.service';
 import { CreateSeriesDto } from './dto/create-series.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Series } from './series.model';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles-auth.decorator';
 
 @ApiTags('Series')
 @Controller('series')
@@ -25,6 +35,8 @@ export class SeriesController {
 
   @ApiOperation({ summary: 'Create series' })
   @ApiResponse({ status: 201, type: Series })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateSeriesDto) {
     return this.seriesService.createSeries(dto);
@@ -32,6 +44,8 @@ export class SeriesController {
 
   @ApiOperation({ summary: 'Delete series' })
   @ApiResponse({ status: 204 })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteById(@Param('id') id: number) {
     return this.seriesService.deleteSeriesById(id);

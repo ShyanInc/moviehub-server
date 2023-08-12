@@ -1,8 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Movie } from './movies.model';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles-auth.decorator';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -25,6 +35,8 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Create movie' })
   @ApiResponse({ status: 201, type: Movie })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateMovieDto) {
     return this.moviesService.createMovie(dto);
@@ -32,6 +44,8 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Delete movie' })
   @ApiResponse({ status: 204 })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteById(@Param('id') id: number) {
     return this.moviesService.deleteMovieById(id);

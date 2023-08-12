@@ -47,6 +47,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, type: User })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateUserDto) {
     return this.usersService.createUser(dto);
@@ -54,6 +56,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Add role to user' })
   @ApiResponse({ status: 200, type: AddRoleDto })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
@@ -80,6 +84,8 @@ export class UsersController {
     status: 200,
     type: BannedUser,
   })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Patch('/ban')
   ban(@Body() dto: BanUserDto) {
     return this.usersService.ban(dto);
@@ -87,6 +93,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Unban user' })
   @ApiResponse({ status: 200, type: User })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Patch('/unban')
   unban(@Body() dto: UnbanUserDto) {
     return this.usersService.unban(dto);
@@ -94,6 +102,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Change user email' })
   @ApiResponse({ status: 200, type: User })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Patch('/email')
   updateEmail(@Body() dto: UpdateUserEmailDto) {
     return this.usersService.updateUserEmailById(dto);
@@ -101,6 +111,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Change user password' })
   @ApiResponse({ status: 200, type: User })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Patch('/password')
   updatePassword(@Body() dto: UpdateUserPasswordDto) {
     return this.usersService.updateUserPasswordById(dto);
@@ -108,6 +120,8 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({ status: 204 })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteUser(@Param('id') id: string) {
     return this.usersService.deleteUserById(id);
