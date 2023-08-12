@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -23,6 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './users.model';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 class BannedUser {
   @ApiProperty({ example: 1, description: '' })
@@ -58,6 +60,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
+  @UseGuards(JwtAuthGuard)
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
