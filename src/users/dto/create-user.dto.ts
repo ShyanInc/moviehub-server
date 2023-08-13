@@ -9,6 +9,7 @@ export class CreateUserDto {
   @IsString({ message: 'Have to be string' })
   @IsEmail({}, { message: 'Invalid email' })
   email: string;
+
   @ApiProperty({ example: 'pass123', description: 'New user password' })
   @IsString({ message: 'Have to be string' })
   @Length(4, 32, {
