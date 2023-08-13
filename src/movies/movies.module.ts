@@ -6,6 +6,7 @@ import { Movie } from './movies.model';
 import { Genre } from '../genres/genres.model';
 import { GenresModule } from '../genres/genres.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { FilesModule } from '../files/files.module';
 
 @Module({
   controllers: [MoviesController],
@@ -14,6 +15,7 @@ import { AuthModule } from 'src/auth/auth.module';
     SequelizeModule.forFeature([Movie, Genre]),
     GenresModule,
     AuthModule,
+    FilesModule,
   ],
 })
 export class MoviesModule {}

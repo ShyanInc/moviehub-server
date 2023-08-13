@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class CreateMovieDto {
   @ApiProperty({ example: 'Авиатор', description: 'Translated movie title' })
@@ -14,7 +14,7 @@ export class CreateMovieDto {
     example: ['United States', 'France'],
     description: 'Movie countries',
   })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   country: string[];
 
   @ApiProperty({ example: 2004, description: 'Movie release year' })
@@ -22,25 +22,25 @@ export class CreateMovieDto {
   year: number;
 
   @ApiProperty({ example: ['Martin Scorsese'], description: 'Movie directors' })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   director: string[];
 
   @ApiProperty({
     example: ['Leonardo DiCaprio', 'Cate Blanchett'],
     description: 'Movie actors',
   })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   actors: string[];
 
   @ApiProperty({ example: ['John Logan'], description: 'Movie screenwriters' })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   screenwriters?: string[];
 
   @ApiProperty({
     example: ['Charles Evans Jr.', 'Graham King'],
     description: 'Movie producers',
   })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   producers?: string[];
 
   @ApiProperty({ example: 25000000, description: 'Movie budget (usd)' })
@@ -56,13 +56,6 @@ export class CreateMovieDto {
   duration: number;
 
   @ApiProperty({
-    example: '/cover.jpg',
-    description: 'Path to movie cover image',
-  })
-  @IsString({ message: 'Have to be a string' })
-  coverImage: string;
-
-  @ApiProperty({
     example: 'https://www.youtube.com/watch?v=FebPJlmgldE',
     description: 'Link to movie trailer',
   })
@@ -74,6 +67,6 @@ export class CreateMovieDto {
   rating: number;
 
   @ApiProperty({ example: ['Drama'], description: 'Movie genres' })
-  @IsArray({ message: 'Have to be an array of strings' })
+  @IsString({ message: 'Have to be an array of strings', each: true })
   genres: string[];
 }

@@ -4,15 +4,25 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
+  UploadedFile,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiConsumes,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Movie } from './movies.model';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { SetMovieCoverImageDto } from './dto/set-movie-cover-image.dto';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -40,6 +50,20 @@ export class MoviesController {
   @Post()
   create(@Body() dto: CreateMovieDto) {
     return this.moviesService.createMovie(dto);
+  }
+
+  @ApiOperation({ summary: 'Set cover image to existing movie' })
+  @ApiResponse({ status: 200, type: Movie })
+  @Roles('ADMIN')
+  @UseGuards(RolesGuard)
+  @Patch('/cover')
+  @ApiConsumes('multipart/form-data')
+  @UseInterceptors(FileInterceptor('image'))
+  setCoverImage(
+    @Body() dto: SetMovieCoverImageDto,
+    @UploadedFile() image: Express.Multer.File,
+  ) {
+    return this.moviesService.setMovieCoverImage(dto.id, image);
   }
 
   @ApiOperation({ summary: 'Delete movie' })

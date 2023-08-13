@@ -56,7 +56,6 @@ export class EpisodesService {
   }
 
   async deleteEpisodeById(id: string) {
-    console.log(typeof id);
     const episode = await this.getEpisodeById(+id);
     if (!episode) {
       throw new HttpException('Episode not found!', HttpStatus.NOT_FOUND);

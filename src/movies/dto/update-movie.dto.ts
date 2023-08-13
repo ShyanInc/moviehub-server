@@ -60,13 +60,6 @@ export class UpdateMovieDto {
   duration: number;
 
   @ApiProperty({
-    example: '/cover.jpg',
-    description: 'Path to movie cover image',
-  })
-  @IsString({ message: 'Have to be a string' })
-  coverImage: string;
-
-  @ApiProperty({
     example: 'https://www.youtube.com/watch?v=FebPJlmgldE',
     description: 'Link to movie trailer',
   })

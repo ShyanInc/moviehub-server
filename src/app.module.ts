@@ -22,6 +22,7 @@ import { UserSeries } from './users/userSeries/user-series.model';
 import { GenresModule } from './genres/genres.module';
 import { EpisodesModule } from './episodes/episodes.module';
 import { SeriesEpisodes } from './episodes/series-episodes.model';
+import { FilesModule } from './files/files.module';
 
 @Module({
   controllers: [],
@@ -63,6 +64,7 @@ import { SeriesEpisodes } from './episodes/series-episodes.model';
     SeriesModule,
     GenresModule,
     EpisodesModule,
+    FilesModule,
   ],
 })
 export class AppModule {}

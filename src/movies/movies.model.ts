@@ -95,10 +95,10 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
   duration: number;
 
   @ApiProperty({
-    example: '/cover.jpg',
-    description: 'Path to movie cover image',
+    example: '',
+    description: 'Path to movie cover image ( empty by default )',
   })
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ type: DataType.STRING, defaultValue: '' })
   coverImage: string;
 
   @ApiProperty({

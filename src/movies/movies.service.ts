@@ -4,12 +4,14 @@ import { Movie } from './movies.model';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { GenresService } from '../genres/genres.service';
 import { Genre } from 'src/genres/genres.model';
+import { FilesService } from '../files/files.service';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectModel(Movie) private movieRepository: typeof Movie,
     private genresService: GenresService,
+    private filesService: FilesService,
   ) {}
 
   async getAllMovies() {
@@ -36,6 +38,18 @@ export class MoviesService {
     }
 
     return movie;
+  }
+
+  async setMovieCoverImage(movieId: number, image: any) {
+    const fileName = await this.filesService.createFile(image);
+    const movie = await this.movieRepository.findByPk(movieId);
+
+    if (!movie) {
+      throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+    }
+
+    movie.coverImage = fileName;
+    return await movie.save();
   }
 
   async deleteMovieById(id: number) {
