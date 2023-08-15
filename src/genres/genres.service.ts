@@ -13,7 +13,9 @@ export class GenresService {
   }
 
   async getGenreByValue(value: string) {
-    const genre = await this.genreRepository.findOne({ where: { value } });
+    const genre = await this.genreRepository.findOne({
+      where: { value: value.toLowerCase() },
+    });
     if (!genre) {
       throw new HttpException('Genre not found!', HttpStatus.NOT_FOUND);
     }
