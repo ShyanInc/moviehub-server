@@ -13,7 +13,7 @@ import { CreateEpisodeDto } from './dto/create-episode.dto';
 import { UpdateEpisodeDto } from './dto/update-episode.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Episode } from './episodes.model';
-import { Roles } from 'src/auth/roles-auth.decorator';
+import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 
 @ApiTags('Episodes')
@@ -37,7 +37,7 @@ export class EpisodesController {
 
   @ApiOperation({ summary: 'Create episode' })
   @ApiResponse({ status: 201, type: Episode })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateEpisodeDto) {
@@ -46,7 +46,7 @@ export class EpisodesController {
 
   @ApiOperation({ summary: 'Update episode' })
   @ApiResponse({ status: 200, type: Episode })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Put()
   update(@Body() dto: UpdateEpisodeDto) {
@@ -55,7 +55,7 @@ export class EpisodesController {
 
   @ApiOperation({ summary: 'Delete episode' })
   @ApiResponse({ status: 204 })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteById(@Param('id') id: string) {

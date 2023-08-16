@@ -6,7 +6,7 @@ interface GenreCreationAttrs {
   description: string;
 }
 
-@Table({ tableName: 'genres' })
+@Table({ tableName: 'genres', createdAt: false, updatedAt: false })
 export class Genre extends Model<Genre, GenreCreationAttrs> {
   @ApiProperty({ example: 1, description: 'Unique indentification' })
   @Column({

@@ -6,6 +6,7 @@ import { Genre } from '../genres/genres.model';
 import { GenresModule } from '../genres/genres.module';
 import { Series } from './series.model';
 import { AuthModule } from 'src/auth/auth.module';
+import { FilesModule } from '../files/files.module';
 
 @Module({
   controllers: [SeriesController],
@@ -14,6 +15,7 @@ import { AuthModule } from 'src/auth/auth.module';
     SequelizeModule.forFeature([Series, Genre]),
     GenresModule,
     AuthModule,
+    FilesModule,
   ],
   exports: [SeriesService],
 })

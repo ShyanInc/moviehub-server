@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsNumber, IsString } from 'class-validator';
+import { IsArray, IsNumber, IsString, ValidateIf } from 'class-validator';
 
 export class CreateSeriesDto {
   @ApiProperty({
@@ -68,19 +68,13 @@ export class CreateSeriesDto {
     description: 'Episode average duration (minutes)',
   })
   @IsNumber({}, { message: 'Have to be a number' })
-  duration: number;
-
-  @ApiProperty({
-    example: '/cover.jpg',
-    description: 'Path to series cover image',
-  })
-  @IsString({ message: 'Have to be a string' })
-  coverImage: string;
+  episodeDuration: number;
 
   @ApiProperty({
     example: 'https://www.youtube.com/watch?v=KMx4iFcozK0',
     description: 'Link to series trailer',
   })
+  @ValidateIf((value) => value.length > 0)
   @IsString({ message: 'Have to be a string' })
   trailer?: string;
 

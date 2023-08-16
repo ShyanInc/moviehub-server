@@ -4,12 +4,15 @@ import { GenresService } from '../genres/genres.service';
 import { Series } from './series.model';
 import { CreateSeriesDto } from './dto/create-series.dto';
 import { Genre } from 'src/genres/genres.model';
+import { SetSeriesCoverImageDto } from './dto/set-series-cover-image.dto';
+import { FilesService } from '../files/files.service';
 
 @Injectable()
 export class SeriesService {
   constructor(
     @InjectModel(Series) private seriesRepository: typeof Series,
     private genresService: GenresService,
+    private filesService: FilesService,
   ) {}
 
   async getAllSeries() {
@@ -39,6 +42,18 @@ export class SeriesService {
     }
 
     return series;
+  }
+
+  async setSeriesCoverImage(seriesId: number, image: any) {
+    const fileName = await this.filesService.createFile(image);
+    const series = await this.seriesRepository.findByPk(seriesId);
+
+    if (!series) {
+      throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+    }
+
+    series.coverImage = fileName;
+    return await series.save();
   }
 
   async deleteSeriesById(id: number) {

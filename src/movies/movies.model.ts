@@ -105,7 +105,7 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
     example: 'https://www.youtube.com/watch?v=FebPJlmgldE',
     description: 'Link to movie trailer',
   })
-  @Column({ type: DataType.STRING })
+  @Column({ type: DataType.STRING, defaultValue: '' })
   trailer?: string;
 
   @ApiProperty({ example: 8, description: 'Movie rating (1-10)' })

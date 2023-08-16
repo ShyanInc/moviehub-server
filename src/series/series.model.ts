@@ -113,14 +113,14 @@ export class Series extends Model<Series, SeriesCreationAttrs> {
     example: '/cover.jpg',
     description: 'Path to series cover image',
   })
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ type: DataType.STRING, defaultValue: '' })
   coverImage: string;
 
   @ApiProperty({
     example: 'https://www.youtube.com/watch?v=KMx4iFcozK0',
     description: 'Link to series trailer',
   })
-  @Column({ type: DataType.STRING })
+  @Column({ type: DataType.STRING, defaultValue: '' })
   trailer?: string;
 
   @ApiProperty({ example: 10, description: 'Series rating (1-10)' })

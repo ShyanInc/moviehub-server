@@ -24,7 +24,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { User } from './users.model';
-import { Roles } from 'src/auth/roles-auth.decorator';
+import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 
 class BannedUser {
@@ -47,7 +47,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Create user' })
   @ApiResponse({ status: 201, type: User })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateUserDto) {
@@ -56,7 +56,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Add role to user' })
   @ApiResponse({ status: 200, type: AddRoleDto })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Post('/role')
   addRole(@Body() dto: AddRoleDto) {
@@ -65,7 +65,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Get()
   getAll() {
@@ -84,7 +84,7 @@ export class UsersController {
     status: 200,
     type: BannedUser,
   })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Patch('/ban')
   ban(@Body() dto: BanUserDto) {
@@ -93,7 +93,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Unban user' })
   @ApiResponse({ status: 200, type: User })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Patch('/unban')
   unban(@Body() dto: UnbanUserDto) {
@@ -102,7 +102,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Change user email' })
   @ApiResponse({ status: 200, type: User })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Patch('/email')
   updateEmail(@Body() dto: UpdateUserEmailDto) {
@@ -111,7 +111,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Change user password' })
   @ApiResponse({ status: 200, type: User })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Patch('/password')
   updatePassword(@Body() dto: UpdateUserPasswordDto) {
@@ -120,7 +120,7 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Delete user' })
   @ApiResponse({ status: 204 })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteUser(@Param('id') id: string) {

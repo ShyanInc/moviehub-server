@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsString, ValidateIf } from 'class-validator';
 
 export class CreateMovieDto {
   @ApiProperty({ example: 'Авиатор', description: 'Translated movie title' })
@@ -59,6 +59,7 @@ export class CreateMovieDto {
     example: 'https://www.youtube.com/watch?v=FebPJlmgldE',
     description: 'Link to movie trailer',
   })
+  @ValidateIf((value) => value.length > 0)
   @IsString({ message: 'Have to be a string' })
   trailer?: string;
 

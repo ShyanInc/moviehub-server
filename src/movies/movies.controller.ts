@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { Movie } from './movies.model';
 import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles-auth.decorator';
+import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { SetMovieCoverImageDto } from './dto/set-movie-cover-image.dto';
 
@@ -45,7 +45,7 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Create movie' })
   @ApiResponse({ status: 201, type: Movie })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateMovieDto) {
@@ -54,7 +54,7 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Set cover image to existing movie' })
   @ApiResponse({ status: 200, type: Movie })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Patch('/cover')
   @ApiConsumes('multipart/form-data')
@@ -68,7 +68,7 @@ export class MoviesController {
 
   @ApiOperation({ summary: 'Delete movie' })
   @ApiResponse({ status: 204 })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteById(@Param('id') id: number) {

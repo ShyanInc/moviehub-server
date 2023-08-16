@@ -14,7 +14,7 @@ import { UpdateGenreDto } from './dto/update-genre.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Genre } from './genres.model';
 import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles-auth.decorator';
+import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
 
 @ApiTags('Genres')
 @Controller('genres')
@@ -23,7 +23,7 @@ export class GenresController {
 
   @ApiOperation({ summary: 'Get all genres' })
   @ApiResponse({ status: 200, type: [Genre] })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Get()
   getAll() {
@@ -32,7 +32,7 @@ export class GenresController {
 
   @ApiOperation({ summary: 'Get genre by value' })
   @ApiResponse({ status: 200, type: Genre })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Get('/:value')
   getByValue(@Param('value') value: string) {
@@ -41,7 +41,7 @@ export class GenresController {
 
   @ApiOperation({ summary: 'Create genre' })
   @ApiResponse({ status: 201, type: Genre })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Post()
   create(@Body() dto: CreateGenreDto) {
@@ -50,7 +50,7 @@ export class GenresController {
 
   @ApiOperation({ summary: 'Update genre' })
   @ApiResponse({ status: 200, type: Genre })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Put('/:id')
   updateById(@Param('id') id: number, @Body() dto: UpdateGenreDto) {
@@ -59,7 +59,7 @@ export class GenresController {
 
   @ApiOperation({ summary: 'Delete genre' })
   @ApiResponse({ status: 204 })
-  @Roles('ADMIN')
+  @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
   deleteById(@Param('id') id: number) {
