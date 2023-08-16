@@ -28,15 +28,24 @@ export class MoviesService {
   }
 
   async createMovie(dto: CreateMovieDto) {
-    const movie = await this.movieRepository.create(dto);
+    const genres: Genre[] = [];
     for (const genreValue of dto.genres) {
-      const genre = await this.genresService.getGenreByValue(genreValue);
-      if (genre) {
-        await movie.$add('genres', genre.id);
-        movie.genres = [genre];
+      try {
+        const genre = await this.genresService.getGenreByValue(genreValue);
+        genres.push(genre);
+      } catch (e) {
+        throw new HttpException(
+          `${genreValue} genre not found!`,
+          HttpStatus.BAD_REQUEST,
+        );
       }
     }
 
+    const movie = await this.movieRepository.create(dto);
+    for (const genre of genres) {
+      await movie.$add('genres', genre.id);
+      movie.genres = [genre];
+    }
     return movie;
   }
 

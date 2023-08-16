@@ -4,7 +4,6 @@ import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
 import { RolesModule } from './roles/roles.module';
 import { AuthModule } from './auth/auth.module';
-import * as process from 'process';
 import { User } from './users/users.model';
 import { Role } from './roles/roles.model';
 import { UserRoles } from './roles/user-roles.model';
@@ -23,6 +22,9 @@ import { GenresModule } from './genres/genres.module';
 import { EpisodesModule } from './episodes/episodes.module';
 import { SeriesEpisodes } from './episodes/series-episodes.model';
 import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as process from 'process';
+import * as path from 'path';
 
 @Module({
   controllers: [],
@@ -30,6 +32,9 @@ import { FilesModule } from './files/files.module';
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: path.resolve(__dirname, 'static'),
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
