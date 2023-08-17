@@ -35,6 +35,7 @@ import * as path from 'path';
     }),
     ServeStaticModule.forRoot({
       rootPath: path.resolve(__dirname, 'static'),
+      serveRoot: '/static',
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
