@@ -17,10 +17,10 @@ export class JwtAuthGuard implements CanActivate {
     try {
       const req = context.switchToHttp().getRequest();
       const authHeader = req.headers.authorization;
-      const bearer = authHeader.split(' ')[0];
+      const bearer = authHeader.split(' ')[0].toLowerCase();
       const token = authHeader.split(' ')[1];
-
-      if (bearer !== 'Bearer' || !token) {
+      console.log(bearer);
+      if (bearer !== 'bearer' || !token) {
         throw new UnauthorizedException('User is not authorized');
       }
 
