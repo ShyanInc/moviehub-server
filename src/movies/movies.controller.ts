@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UploadedFile,
@@ -39,7 +40,7 @@ export class MoviesController {
   @ApiOperation({ summary: 'Get movie by id' })
   @ApiResponse({ status: 200, type: Movie })
   @Get('/:id')
-  getById(@Param('id') id: number) {
+  getById(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.getMovieById(id);
   }
 
@@ -71,7 +72,7 @@ export class MoviesController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
-  deleteById(@Param('id') id: number) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.deleteMovieById(id);
   }
 }

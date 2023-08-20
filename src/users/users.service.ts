@@ -131,8 +131,8 @@ export class UsersService {
     return user;
   }
 
-  async deleteUserById(id: string) {
-    const user = await this.userRepository.findByPk(+id);
+  async deleteUserById(id: number) {
+    const user = await this.userRepository.findByPk(id);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }

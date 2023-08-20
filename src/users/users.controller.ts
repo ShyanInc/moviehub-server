@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UseGuards,
@@ -75,8 +76,8 @@ export class UsersController {
   @ApiOperation({ summary: 'Get user by id' })
   @ApiResponse({ status: 200, type: User })
   @Get('/:id')
-  getById(@Param('id') id: string) {
-    return this.usersService.getUserById(+id);
+  getById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersService.getUserById(id);
   }
 
   @ApiOperation({ summary: 'Ban user' })
@@ -123,7 +124,7 @@ export class UsersController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
-  deleteUser(@Param('id') id: string) {
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.deleteUserById(id);
   }
 }

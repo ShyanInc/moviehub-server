@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   UseGuards,
@@ -53,7 +54,10 @@ export class GenresController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Put('/:id')
-  updateById(@Param('id') id: number, @Body() dto: UpdateGenreDto) {
+  updateById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateGenreDto,
+  ) {
     return this.genresService.updateGenreById(id, dto);
   }
 
@@ -62,7 +66,7 @@ export class GenresController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
-  deleteById(@Param('id') id: number) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.genresService.deleteGenreById(id);
   }
 }

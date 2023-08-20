@@ -55,7 +55,7 @@ export class EpisodesService {
     return dto;
   }
 
-  async deleteEpisodeById(id: string) {
+  async deleteEpisodeById(id: number) {
     const episode = await this.getEpisodeById(+id);
     if (!episode) {
       throw new HttpException('Episode not found!', HttpStatus.NOT_FOUND);

@@ -4,27 +4,26 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { SeriesService } from './series.service';
-import { CreateSeriesDto } from './dto/create-series.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiConsumes,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Series } from './series.model';
-import { RolesGuard } from 'src/auth/roles.guard';
 import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
-import { Movie } from '../movies/movies.model';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { SetMovieCoverImageDto } from '../movies/dto/set-movie-cover-image.dto';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { CreateSeriesDto } from './dto/create-series.dto';
 import { SetSeriesCoverImageDto } from './dto/set-series-cover-image.dto';
+import { Series } from './series.model';
+import { SeriesService } from './series.service';
 
 @ApiTags('Series')
 @Controller('series')
@@ -41,7 +40,7 @@ export class SeriesController {
   @ApiOperation({ summary: 'Get series by id' })
   @ApiResponse({ status: 200, type: Series })
   @Get('/:id')
-  getById(@Param('id') id: number) {
+  getById(@Param('id', ParseIntPipe) id: number) {
     return this.seriesService.getSeriesById(id);
   }
 
@@ -73,7 +72,7 @@ export class SeriesController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
-  deleteById(@Param('id') id: number) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.seriesService.deleteSeriesById(id);
   }
 }

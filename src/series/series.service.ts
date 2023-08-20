@@ -1,11 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { GenresService } from '../genres/genres.service';
-import { Series } from './series.model';
-import { CreateSeriesDto } from './dto/create-series.dto';
 import { Genre } from 'src/genres/genres.model';
-import { SetSeriesCoverImageDto } from './dto/set-series-cover-image.dto';
 import { FilesService } from '../files/files.service';
+import { GenresService } from '../genres/genres.service';
+import { CreateSeriesDto } from './dto/create-series.dto';
+import { Series } from './series.model';
 
 @Injectable()
 export class SeriesService {

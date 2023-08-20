@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   UseGuards,
@@ -31,7 +32,7 @@ export class EpisodesController {
   @ApiOperation({ summary: 'Get episode by id' })
   @ApiResponse({ status: 200, type: Episode })
   @Get('/:id')
-  getBySeries(@Param('id') seriesId: number) {
+  getBySeries(@Param('id', ParseIntPipe) seriesId: number) {
     return this.episodesService.getEpisodesBySeries(seriesId);
   }
 
@@ -58,7 +59,7 @@ export class EpisodesController {
   @Roles(ADMIN_ROLE)
   @UseGuards(RolesGuard)
   @Delete('/:id')
-  deleteById(@Param('id') id: string) {
+  deleteById(@Param('id', ParseIntPipe) id: number) {
     return this.episodesService.deleteEpisodeById(id);
   }
 }

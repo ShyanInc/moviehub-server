@@ -37,7 +37,7 @@ export class GenresService {
     return await this.genreRepository.create(dto);
   }
 
-  async updateGenreById(id, dto: UpdateGenreDto) {
+  async updateGenreById(id: number, dto: UpdateGenreDto) {
     const genre = await this.genreRepository.findByPk(id);
     if (!genre) {
       throw new HttpException('Genre not found!', HttpStatus.NOT_FOUND);
