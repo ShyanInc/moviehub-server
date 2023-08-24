@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Movie } from './movies.model';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -14,7 +19,27 @@ export class MoviesService {
     private filesService: FilesService,
   ) {}
 
-  async getAllMovies() {
+  async getAllMovies(limit: number | undefined, page: number | undefined) {
+    if (Number.isNaN(limit) || Number.isNaN(page)) {
+      throw new BadRequestException('Invalid query params');
+    }
+
+    if (limit && page > 0) {
+      const offset = limit * page - limit;
+      return await this.movieRepository.findAll({
+        limit,
+        offset,
+        include: { all: true },
+      });
+    }
+
+    if (limit) {
+      return await this.movieRepository.findAll({
+        limit,
+        include: { all: true },
+      });
+    }
+
     return await this.movieRepository.findAll({ include: { all: true } });
   }
 

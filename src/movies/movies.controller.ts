@@ -7,23 +7,25 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { MoviesService } from './movies.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiConsumes,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Movie } from './movies.model';
-import { RolesGuard } from 'src/auth/roles.guard';
 import { ADMIN_ROLE, Roles } from 'src/auth/roles-auth.decorator';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { CreateMovieDto } from './dto/create-movie.dto';
+import { GetMoviesQueryDto } from './dto/get-movies-query.dto';
 import { SetMovieCoverImageDto } from './dto/set-movie-cover-image.dto';
+import { Movie } from './movies.model';
+import { MoviesService } from './movies.service';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -33,8 +35,11 @@ export class MoviesController {
   @ApiOperation({ summary: 'Get all movies' })
   @ApiResponse({ status: 200, type: [Movie] })
   @Get()
-  getAll() {
-    return this.moviesService.getAllMovies();
+  getAll(@Query() query: GetMoviesQueryDto) {
+    const limit = parseInt(query.limit);
+    const page = parseInt(query.page);
+
+    return this.moviesService.getAllMovies(limit, page);
   }
 
   @ApiOperation({ summary: 'Get movie by id' })
