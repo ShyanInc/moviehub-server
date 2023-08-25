@@ -36,8 +36,8 @@ export class MoviesController {
   @ApiResponse({ status: 200, type: [Movie] })
   @Get()
   getAll(@Query() query: GetMoviesQueryDto) {
-    const limit = parseInt(query.limit);
-    const page = parseInt(query.page);
+    const limit = query.limit ? parseInt(query.limit) : undefined;
+    const page = query.page ? parseInt(query.page) : undefined;
 
     return this.moviesService.getAllMovies(limit, page);
   }
