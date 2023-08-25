@@ -62,7 +62,7 @@ import { UserInfo } from './users/usersInfo/users-info.model';
       ],
       autoLoadModels: true,
       synchronize: true,
-      sync: { alter: true },
+      sync: { force: true },
     }),
     UsersModule,
     RolesModule,
