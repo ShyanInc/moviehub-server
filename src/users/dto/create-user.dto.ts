@@ -4,7 +4,7 @@ import { IsEmail, IsString, Length } from 'class-validator';
 export class CreateUserDto {
   @ApiProperty({ example: 'Username', description: 'Username of the user' })
   @IsString({ message: 'Have to be a string' })
-  @Length(4, 18, {
+  @Length(3, 18, {
     message: 'Username min length is 4 and max is 18 characters',
   })
   username: string;

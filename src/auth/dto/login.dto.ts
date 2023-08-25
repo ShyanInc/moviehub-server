@@ -7,7 +7,7 @@ export class LoginDto {
     description: 'Username of the user account',
   })
   @IsString({ message: 'Have to be a string' })
-  @Length(4, 18, {
+  @Length(3, 18, {
     message: 'Username min length is 4 and max is 18 characters',
   })
   username: string;
