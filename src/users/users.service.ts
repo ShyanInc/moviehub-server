@@ -39,13 +39,26 @@ export class UsersService {
     });
   }
 
-  async createUser(dto: CreateUserDto) {
-    const candidate = await this.userRepository.findOne({
-      where: { email: dto.email },
+  async getUserByUsername(username: string) {
+    return await this.userRepository.findOne({
+      where: { username },
+      include: [Role],
     });
-    if (candidate) {
+  }
+
+  async createUser(dto: CreateUserDto) {
+    const candidateEmail = await this.getUserByEmail(dto.email);
+    if (candidateEmail) {
       throw new HttpException(
         'User with this email already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    const candidateUsername = await this.getUserByUsername(dto.username);
+    if (candidateUsername) {
+      throw new HttpException(
+        'User with this username already exists',
         HttpStatus.BAD_REQUEST,
       );
     }

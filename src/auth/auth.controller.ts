@@ -8,6 +8,7 @@ import {
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { HttpCode } from '@nestjs/common/decorators';
+import { LoginDto } from './dto/login.dto';
 
 class JwtToken {
   @ApiProperty({
@@ -31,7 +32,7 @@ export class AuthController {
   })
   @Post('/login')
   @HttpCode(200)
-  login(@Body() dto: CreateUserDto) {
+  login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
 
