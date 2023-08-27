@@ -28,6 +28,8 @@ import {
 import { User } from './users.model';
 import { UsersService } from './users.service';
 import { UsersInfoService } from './usersInfo/users-info.service';
+import { UserInfo } from './usersInfo/users-info.model';
+import { CreateUserInfoDto } from './usersInfo/dto/create-user-info.dto';
 
 class BannedUser {
   @ApiProperty({ example: 1, description: '' })
@@ -68,13 +70,12 @@ export class UsersController {
     return this.usersService.addRole(dto);
   }
 
-  // TODO add user info
-  // @ApiOperation({ summary: 'Add user info' })
-  // @ApiResponse({ status: 200, type: UserInfo })
-  // @Post('/info')
-  // addInfo(@Body() dto: CreateUserInfoDto) {
-  //   return this.usersInfoService.create(dto);
-  // }
+  @ApiOperation({ summary: 'Add user info' })
+  @ApiResponse({ status: 200, type: UserInfo })
+  @Post('/info')
+  addInfo(@Body() dto: CreateUserInfoDto) {
+    return this.usersInfoService.create(dto);
+  }
 
   @ApiOperation({ summary: 'Get all users' })
   @ApiResponse({ status: 200, type: [User] })
@@ -90,6 +91,23 @@ export class UsersController {
   @Get('/:id')
   getById(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getUserById(id);
+  }
+
+  // TODO: get all users info
+  // @ApiOperation({ summary: 'Get users info' })
+  // @ApiResponse({ status: 200, type: [UserInfo] })
+  // @Roles(ADMIN_ROLE)
+  // @UseGuards(RolesGuard)
+  // @Get('/info')
+  // getAllUsersInfo() {
+  //   return this.usersInfoService.getAll();
+  // }
+
+  @ApiOperation({ summary: 'Get user info' })
+  @ApiResponse({ status: 200, type: UserInfo })
+  @Get('/info/:id')
+  getInfoById(@Param('id', ParseIntPipe) id: number) {
+    return this.usersInfoService.getById(id);
   }
 
   @ApiOperation({ summary: 'Ban user' })
