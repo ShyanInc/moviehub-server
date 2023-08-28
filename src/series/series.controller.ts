@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -24,6 +25,8 @@ import { CreateSeriesDto } from './dto/create-series.dto';
 import { SetSeriesCoverImageDto } from './dto/set-series-cover-image.dto';
 import { Series } from './series.model';
 import { SeriesService } from './series.service';
+import { GetSeriesQueryDto } from './dto/get-series-query.dto';
+import { parseQuery } from 'src/utils/query';
 
 @ApiTags('Series')
 @Controller('series')
@@ -33,8 +36,11 @@ export class SeriesController {
   @ApiOperation({ summary: 'Get all series' })
   @ApiResponse({ status: 200, type: [Series] })
   @Get()
-  getAll() {
-    return this.seriesService.getAllSeries();
+  getAll(@Query() query: GetSeriesQueryDto) {
+    const limit = parseQuery(query.limit);
+    const page = parseQuery(query.page);
+
+    return this.seriesService.getAllSeries(limit, page);
   }
 
   @ApiOperation({ summary: 'Get series by id' })

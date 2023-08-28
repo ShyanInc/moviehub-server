@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Genre } from 'src/genres/genres.model';
 import { FilesService } from '../files/files.service';
@@ -14,7 +19,27 @@ export class SeriesService {
     private filesService: FilesService,
   ) {}
 
-  async getAllSeries() {
+  async getAllSeries(limit: number, page: number) {
+    if (Number.isNaN(limit) || Number.isNaN(page)) {
+      throw new BadRequestException('Invalid query params');
+    }
+
+    if (limit && page > 0) {
+      const offset = limit * page - limit;
+      return await this.seriesRepository.findAll({
+        limit,
+        offset,
+        include: { all: true },
+      });
+    }
+
+    if (limit) {
+      return await this.seriesRepository.findAll({
+        limit,
+        include: { all: true },
+      });
+    }
+
     return await this.seriesRepository.findAll({ include: { all: true } });
   }
 
