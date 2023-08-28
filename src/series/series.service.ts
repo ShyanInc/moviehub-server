@@ -19,6 +19,7 @@ export class SeriesService {
     private filesService: FilesService,
   ) {}
 
+  // TODO: optimize limit & page query logic
   async getAllSeries(limit: number, page: number) {
     if (Number.isNaN(limit) || Number.isNaN(page)) {
       throw new BadRequestException('Invalid query params');

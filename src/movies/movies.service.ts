@@ -19,6 +19,7 @@ export class MoviesService {
     private filesService: FilesService,
   ) {}
 
+  // TODO: optimize limit & page query logic
   async getAllMovies(limit: number | undefined, page: number | undefined) {
     if (Number.isNaN(limit) || Number.isNaN(page)) {
       throw new BadRequestException('Invalid query params');

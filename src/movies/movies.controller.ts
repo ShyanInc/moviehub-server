@@ -26,6 +26,7 @@ import { GetMoviesQueryDto } from './dto/get-movies-query.dto';
 import { SetMovieCoverImageDto } from './dto/set-movie-cover-image.dto';
 import { Movie } from './movies.model';
 import { MoviesService } from './movies.service';
+import { parseQuery } from 'src/utils/query';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -36,8 +37,8 @@ export class MoviesController {
   @ApiResponse({ status: 200, type: [Movie] })
   @Get()
   getAll(@Query() query: GetMoviesQueryDto) {
-    const limit = query.limit ? parseInt(query.limit) : undefined;
-    const page = query.page ? parseInt(query.page) : undefined;
+    const limit = parseQuery(query.limit);
+    const page = parseQuery(query.page);
 
     return this.moviesService.getAllMovies(limit, page);
   }
