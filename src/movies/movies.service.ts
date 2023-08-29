@@ -10,6 +10,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { GenresService } from '../genres/genres.service';
 import { Genre } from 'src/genres/genres.model';
 import { FilesService } from '../files/files.service';
+import { getOffset } from 'src/utils/pagination';
 
 @Injectable()
 export class MoviesService {
@@ -26,7 +27,7 @@ export class MoviesService {
     }
 
     if (limit && page > 0) {
-      const offset = limit * page - limit;
+      const offset = getOffset(limit, page);
       return await this.movieRepository.findAll({
         limit,
         offset,

@@ -10,6 +10,7 @@ import { FilesService } from '../files/files.service';
 import { GenresService } from '../genres/genres.service';
 import { CreateSeriesDto } from './dto/create-series.dto';
 import { Series } from './series.model';
+import { getOffset } from 'src/utils/pagination';
 
 @Injectable()
 export class SeriesService {
@@ -26,7 +27,7 @@ export class SeriesService {
     }
 
     if (limit && page > 0) {
-      const offset = limit * page - limit;
+      const offset = getOffset(limit, page);
       return await this.seriesRepository.findAll({
         limit,
         offset,
