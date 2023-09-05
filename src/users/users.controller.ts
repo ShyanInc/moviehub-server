@@ -52,14 +52,7 @@ export class UsersController {
     private usersInfoService: UsersInfoService,
   ) {}
 
-  @ApiOperation({ summary: 'Create user' })
-  @ApiResponse({ status: 201, type: User })
-  @Roles(ADMIN_ROLE)
-  @UseGuards(RolesGuard)
-  @Post()
-  create(@Body() dto: CreateUserDto) {
-    return this.usersService.createUser(dto);
-  }
+  // User Roles
 
   @ApiOperation({ summary: 'Add role to user' })
   @ApiResponse({ status: 200, type: AddRoleDto })
@@ -69,6 +62,8 @@ export class UsersController {
   addRole(@Body() dto: AddRoleDto) {
     return this.usersService.addRole(dto);
   }
+
+  // User Info
 
   @ApiOperation({ summary: 'Add user info' })
   @ApiResponse({ status: 200, type: UserInfo })
@@ -93,6 +88,17 @@ export class UsersController {
   @Get('/info/:id')
   getInfoById(@Param('id', ParseIntPipe) id: number) {
     return this.usersInfoService.getById(id);
+  }
+
+  // Users
+
+  @ApiOperation({ summary: 'Create user' })
+  @ApiResponse({ status: 201, type: User })
+  @Roles(ADMIN_ROLE)
+  @UseGuards(RolesGuard)
+  @Post()
+  create(@Body() dto: CreateUserDto) {
+    return this.usersService.createUser(dto);
   }
 
   @ApiOperation({ summary: 'Get all users' })
