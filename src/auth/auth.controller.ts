@@ -9,6 +9,7 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { AuthService } from './auth.service';
 import { HttpCode } from '@nestjs/common/decorators';
 import { LoginDto } from './dto/login.dto';
+import { AuthResponseDto } from '../users/dto/auth-response.dto';
 
 class JwtToken {
   @ApiProperty({
@@ -27,8 +28,8 @@ export class AuthController {
   @ApiOperation({ summary: 'Login' })
   @ApiResponse({
     status: 200,
-    description: 'Return a JsonWebToken',
-    type: JwtToken,
+    description: 'Returns user',
+    type: AuthResponseDto,
   })
   @Post('/login')
   @HttpCode(200)
@@ -40,7 +41,7 @@ export class AuthController {
   @ApiResponse({
     status: 201,
     description: 'Return a JsonWebToken',
-    type: JwtToken,
+    type: AuthResponseDto,
   })
   @Post('/register')
   register(@Body() dto: CreateUserDto) {

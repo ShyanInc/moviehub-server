@@ -7,6 +7,7 @@ import * as bcrypt from 'bcryptjs';
 import { User } from 'src/users/users.model';
 import { LoginDto } from './dto/login.dto';
 import { UsersInfoService } from '../users/usersInfo/users-info.service';
+import { AuthResponseDto } from '../users/dto/auth-response.dto';
 
 @Injectable()
 export class AuthService {
@@ -48,14 +49,16 @@ export class AuthService {
     const userInfo = await this.userInfoService.getById(user.id);
     const { accessToken } = this.generateToken(user);
 
-    return {
-      username: user.username,
-      name: userInfo.name,
-      surname: userInfo.surname,
-      status: userInfo.status,
-      birthDate: userInfo.birthDate,
-      accessToken: accessToken,
-    };
+    const responseDto = new AuthResponseDto(
+      user.username,
+      userInfo.name,
+      userInfo.surname,
+      userInfo.status,
+      userInfo.birthDate,
+      accessToken,
+    );
+
+    return responseDto;
   }
 
   private generateToken(user: User) {
