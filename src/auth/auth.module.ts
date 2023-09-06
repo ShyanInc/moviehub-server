@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { UsersModule } from 'src/users/users.module';
+import { UsersInfoModule } from '../users/usersInfo/users-info.module';
 
 @Module({
   controllers: [AuthController],
@@ -12,6 +13,7 @@ import { UsersModule } from 'src/users/users.module';
       signOptions: { expiresIn: '1d' },
     }),
     forwardRef(() => UsersModule),
+    UsersInfoModule,
   ],
   exports: [AuthModule, JwtModule],
 })

@@ -6,17 +6,28 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcryptjs';
 import { User } from 'src/users/users.model';
 import { LoginDto } from './dto/login.dto';
+import { UsersInfoService } from '../users/usersInfo/users-info.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private userService: UsersService,
+    private userInfoService: UsersInfoService,
     private jwtService: JwtService,
   ) {}
 
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
-    return this.generateToken(user);
+    const userInfo = await this.userInfoService.getById(user.id);
+    const { accessToken } = this.generateToken(user);
+    return {
+      username: user.username,
+      name: userInfo.name,
+      surname: userInfo.surname,
+      status: userInfo.status,
+      birthDate: userInfo.birthDate,
+      accessToken: accessToken,
+    };
   }
 
   async register(dto: CreateUserDto) {
@@ -34,7 +45,17 @@ export class AuthService {
       password: hashPassword,
     });
 
-    return this.generateToken(user);
+    const userInfo = await this.userInfoService.getById(user.id);
+    const { accessToken } = this.generateToken(user);
+
+    return {
+      username: user.username,
+      name: userInfo.name,
+      surname: userInfo.surname,
+      status: userInfo.status,
+      birthDate: userInfo.birthDate,
+      accessToken: accessToken,
+    };
   }
 
   private generateToken(user: User) {
