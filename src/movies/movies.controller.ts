@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Put,
   Query,
   UploadedFile,
   UseGuards,
@@ -27,6 +28,7 @@ import { SetMovieCoverImageDto } from './dto/set-movie-cover-image.dto';
 import { Movie } from './movies.model';
 import { MoviesService } from './movies.service';
 import { parseQuery } from 'src/utils/query';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -57,6 +59,14 @@ export class MoviesController {
   @Post()
   create(@Body() dto: CreateMovieDto) {
     return this.moviesService.createMovie(dto);
+  }
+
+  @Put('/:id')
+  updateById(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() dto: UpdateMovieDto,
+  ) {
+    return this.moviesService.updateMovieById(id, dto);
   }
 
   @ApiOperation({ summary: 'Set cover image to existing movie' })

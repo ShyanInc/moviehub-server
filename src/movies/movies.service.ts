@@ -3,6 +3,7 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Movie } from './movies.model';
@@ -11,6 +12,7 @@ import { GenresService } from '../genres/genres.service';
 import { Genre } from 'src/genres/genres.model';
 import { FilesService } from '../files/files.service';
 import { getOffset } from 'src/utils/pagination';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @Injectable()
 export class MoviesService {
@@ -74,6 +76,19 @@ export class MoviesService {
       movie.genres = [genre];
     }
     return movie;
+  }
+
+  async updateMovieById(id: number, dto: UpdateMovieDto) {
+    const candidate = await this.movieRepository.findByPk(id, {
+      include: { all: true },
+    });
+    if (!candidate) {
+      throw new NotFoundException('Movie not found!');
+    }
+
+    await candidate.update(dto);
+    await candidate.save();
+    return candidate;
   }
 
   async setMovieCoverImage(movieId: number, image: any) {
