@@ -59,6 +59,8 @@ export class SeriesController {
     return this.seriesService.createSeries(dto);
   }
 
+  // TODO: add updateSeriesById endpoint
+
   @ApiOperation({ summary: 'Set cover image to existing series' })
   @ApiResponse({ status: 200, type: Series })
   @Roles(ADMIN_ROLE)
