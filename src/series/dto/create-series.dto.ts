@@ -82,6 +82,13 @@ export class CreateSeriesDto {
   @IsNumber({}, { message: 'Have to be a number' })
   rating: number;
 
+  @ApiProperty({
+    example: 'some description',
+    description: 'Series short description',
+  })
+  @IsString({ message: 'Have to be a string' })
+  description: string;
+
   @ApiProperty({ example: ['drama', 'criminal'], description: 'Series genres' })
   @IsArray({ message: 'Have to be an array of strings' })
   genres: string[];

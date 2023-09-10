@@ -126,4 +126,11 @@ export class Series extends Model<Series, SeriesCreationAttrs> {
   @ApiProperty({ example: 10, description: 'Series rating (1-10)' })
   @Column({ type: DataType.INTEGER })
   rating: number;
+
+  @ApiProperty({
+    example: 'some description',
+    description: 'Series short description',
+  })
+  @Column({ type: DataType.STRING, defaultValue: '' })
+  description: string;
 }
