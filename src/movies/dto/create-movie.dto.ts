@@ -67,6 +67,13 @@ export class CreateMovieDto {
   @IsNumber({}, { message: 'Have to be a number' })
   rating: number;
 
+  @ApiProperty({
+    example: 'some description',
+    description: 'Movie short description',
+  })
+  @IsString({ message: 'Have to be a string' })
+  description: string;
+
   @ApiProperty({ example: ['Drama'], description: 'Movie genres' })
   @IsString({ message: 'Have to be an array of strings', each: true })
   genres: string[];

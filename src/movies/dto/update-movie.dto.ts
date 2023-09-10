@@ -60,6 +60,13 @@ export class UpdateMovieDto {
   duration: number;
 
   @ApiProperty({
+    example: 'some description',
+    description: 'Movie short description',
+  })
+  @IsString({ message: 'Have to be a string' })
+  description: string;
+
+  @ApiProperty({
     example: 'https://www.youtube.com/watch?v=FebPJlmgldE',
     description: 'Link to movie trailer',
   })

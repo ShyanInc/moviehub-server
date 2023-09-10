@@ -111,4 +111,11 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
   @ApiProperty({ example: 8, description: 'Movie rating (1-10)' })
   @Column({ type: DataType.INTEGER })
   rating: number;
+
+  @ApiProperty({
+    example: 'some description',
+    description: 'Movie short description',
+  })
+  @Column({ type: DataType.STRING, defaultValue: '' })
+  description: string;
 }
