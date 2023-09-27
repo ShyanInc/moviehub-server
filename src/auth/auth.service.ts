@@ -19,16 +19,20 @@ export class AuthService {
 
   async login(dto: LoginDto) {
     const user = await this.validateUser(dto);
-    const userInfo = await this.userInfoService.getById(user.id);
-    const { accessToken } = this.generateToken(user);
-    return {
-      username: user.username,
-      name: userInfo.name,
-      surname: userInfo.surname,
-      status: userInfo.status,
-      birthDate: userInfo.birthDate,
-      accessToken: accessToken,
-    };
+    try {
+      const userInfo = await this.userInfoService.getById(user.id);
+      const { accessToken } = this.generateToken(user);
+      return {
+        username: user.username,
+        name: userInfo.name,
+        surname: userInfo.surname,
+        status: userInfo.status,
+        birthDate: userInfo.birthDate,
+        accessToken: accessToken,
+      };
+    } catch (e: any) {
+      console.log('error', e);
+    }
   }
 
   async register(dto: CreateUserDto) {
@@ -46,7 +50,7 @@ export class AuthService {
       password: hashPassword,
     });
 
-    const userInfo = await this.userInfoService.getById(user.id);
+    const userInfo = await this.userInfoService.create({ userId: user.id });
     const { accessToken } = this.generateToken(user);
 
     const responseDto = new AuthResponseDto(

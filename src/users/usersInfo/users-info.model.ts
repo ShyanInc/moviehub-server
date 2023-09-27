@@ -28,7 +28,7 @@ export class UserInfo extends Model<UserInfo, UsersInfoCreationAttrs> {
   @Column({ type: DataType.INTEGER })
   userId: number;
 
-  @Column({ type: DataType.STRING, allowNull: false })
+  @Column({ type: DataType.STRING })
   name: string;
 
   @Column({ type: DataType.STRING })
@@ -37,6 +37,6 @@ export class UserInfo extends Model<UserInfo, UsersInfoCreationAttrs> {
   @Column({ type: DataType.STRING })
   status: string;
 
-  @Column({ type: DataType.DATE, allowNull: false })
+  @Column({ type: DataType.DATE })
   birthDate: Date;
 }

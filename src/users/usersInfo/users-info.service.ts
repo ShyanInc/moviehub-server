@@ -20,7 +20,9 @@ export class UsersInfoService {
   }
 
   async getById(id: number) {
-    const userInfo = await this.userInfoRepository.findByPk(id);
+    const userInfo = await this.userInfoRepository.findOne({
+      where: { userId: id },
+    });
     if (!userInfo) {
       throw new NotFoundException();
     }
